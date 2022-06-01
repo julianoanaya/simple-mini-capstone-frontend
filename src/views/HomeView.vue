@@ -9,6 +9,7 @@ export default {
       items: [{ message: "Foo" }, { message: "Bar" }, { message: "hello there" }],
       products: [],
       newProductParams: {},
+      editProductParams: {},
       currentProduct: {},
     };
   },
@@ -44,7 +45,16 @@ export default {
     showProduct: function (product) {
       console.log("info is shown", product);
       this.currentProduct = product;
+      this.editProductParams = product;
       document.querySelector("#product-details").showModal();
+    },
+    updateProduct: function () {
+      console.log("updating product...", this.editProductParams);
+      axios
+        .patch("http://localhost:3000/products/" + this.editProductParams.id + ".json", this.editProductParams)
+        .then((response) => {
+          console.log("Success", response.date);
+        });
     },
   },
 };
@@ -93,7 +103,21 @@ export default {
         <p>Description: {{ currentProduct.description }}</p>
         <p>Tax: {{ currentProduct.tax }}</p>
         <p>Total: {{ currentProduct.total }}</p>
-        <button>Close window</button>
+        <h1>Edit Product:</h1>
+        <p>
+          Name:
+          <input type="text" v-model="editProductParams.name" />
+        </p>
+        <p>
+          Price:
+          <input type="text" v-model="editProductParams.price" />
+        </p>
+        <p>
+          Description:
+          <input type="text" v-model="editProductParams.description" />
+        </p>
+        <p><button v-on:click="updateProduct()">Update Product</button></p>
+        <button>Close Window</button>
       </form>
     </dialog>
   </div>
