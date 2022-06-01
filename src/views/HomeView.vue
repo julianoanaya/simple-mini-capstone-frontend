@@ -8,6 +8,7 @@ export default {
       samp: "sample",
       items: [{ message: "Foo" }, { message: "Bar" }, { message: "hello there" }],
       products: [],
+      newProductParams: {},
     };
   },
   created: function () {
@@ -29,18 +30,13 @@ export default {
     createProduct: function () {
       console.log("Creating product...");
 
-      var params = {
-        name: "test name ;)",
-        price: "10",
-        description: "test description",
-        image_url: "no.jpeg",
-      };
+      var params = this.newProductParams;
 
       axios
         .post("http://localhost:3000/products.json", params)
         .then((response) => {
           console.log("Created Product", response.data);
-          this.products.push(response.date);
+          this.products.push(response.data);
         })
         .catch((error) => console.log(error.response));
     },
@@ -51,6 +47,23 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+    <h2>New Product</h2>
+    <div>
+      Name:
+      <input type="text" v-model="newProductParams.name" />
+    </div>
+    <div>
+      Price:
+      <input type="text" v-model="newProductParams.price" />
+    </div>
+    <div>
+      description:
+      <input type="text" v-model="newProductParams.description" />
+    </div>
+    <div>
+      image_url:
+      <input type="text" v-model="newProductParams.image_url" />
+    </div>
     <button v-on:click="createProduct()">Create Product</button>
     <!-- <h3>{{ samp }}</h3>
     <p>helloWorld</p>
