@@ -116,6 +116,10 @@ export default {
           Description:
           <input type="text" v-model="editProductParams.description" />
         </p>
+        <p>
+          Image_url:
+          <input type="text" v-model="editProductParams.image_url" />
+        </p>
         <p><button v-on:click="updateProduct()">Update Product</button></p>
         <button>Close Window</button>
       </form>
