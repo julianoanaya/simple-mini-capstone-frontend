@@ -26,6 +26,24 @@ export default {
         console.log("All products", response.data);
       });
     },
+    createProduct: function () {
+      console.log("Creating product...");
+
+      var params = {
+        name: "test name ;)",
+        price: "10",
+        description: "test description",
+        image_url: "no.jpeg",
+      };
+
+      axios
+        .post("http://localhost:3000/products.json", params)
+        .then((response) => {
+          console.log("Created Product", response.data);
+          this.products.push(response.date);
+        })
+        .catch((error) => console.log(error.response));
+    },
   },
 };
 </script>
@@ -33,6 +51,7 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+    <button v-on:click="createProduct()">Create Product</button>
     <!-- <h3>{{ samp }}</h3>
     <p>helloWorld</p>
     <button v-on:click="helloWorld">hi</button>
