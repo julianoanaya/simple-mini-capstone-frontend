@@ -5,6 +5,10 @@ export default {
       message: "hello and welcome to! ",
       samp: "sample",
       items: [{ message: "Foo" }, { message: "Bar" }, { message: "hello there" }],
+      products: [
+        { id: 1, name: "Product 1", price: 10 },
+        { id: 2, name: "Product 2", price: 230 },
+      ],
     };
   },
   created: function () {},
@@ -29,6 +33,10 @@ export default {
     <li v-for="item in items" :key="item">
       {{ item.message }}
     </li>
+    <div v-for="product in products" v-bind:key="product.id">
+      <h2>Name: {{ product.name }}</h2>
+      <p>Price: {{ product.price }}</p>
+    </div>
   </div>
 </template>
 
