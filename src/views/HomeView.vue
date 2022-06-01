@@ -40,6 +40,10 @@ export default {
         })
         .catch((error) => console.log(error.response));
     },
+    showProduct: function (product) {
+      console.log("info is shown", product);
+      document.querySelector("#product-details").showModal();
+    },
   },
 };
 </script>
@@ -76,7 +80,19 @@ export default {
       <h1>Name: {{ product.name }}</h1>
       <img v-bind:src="product.image_url" v-bind:alt="product.title" />
       <p>Price: {{ product.price }}</p>
+      <button v-on:click="showProduct">Show info...</button>
     </div>
+
+    <dialog id="product-details">
+      <form method="dialog">
+        <h2>Product info:</h2>
+        <p>Name: ...</p>
+        <p>Price: ...</p>
+        <p>Description: ...</p>
+        <p>Price: ...</p>
+        <button>Close window</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
