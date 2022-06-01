@@ -9,6 +9,7 @@ export default {
       items: [{ message: "Foo" }, { message: "Bar" }, { message: "hello there" }],
       products: [],
       newProductParams: {},
+      currentProduct: {},
     };
   },
   created: function () {
@@ -42,6 +43,7 @@ export default {
     },
     showProduct: function (product) {
       console.log("info is shown", product);
+      this.currentProduct = product;
       document.querySelector("#product-details").showModal();
     },
   },
@@ -80,16 +82,17 @@ export default {
       <h1>Name: {{ product.name }}</h1>
       <img v-bind:src="product.image_url" v-bind:alt="product.title" />
       <p>Price: {{ product.price }}</p>
-      <button v-on:click="showProduct">Show info...</button>
+      <button v-on:click="showProduct(product)">Show info...</button>
     </div>
 
     <dialog id="product-details">
       <form method="dialog">
         <h2>Product info:</h2>
-        <p>Name: ...</p>
-        <p>Price: ...</p>
-        <p>Description: ...</p>
-        <p>Price: ...</p>
+        <p>Name: {{ currentProduct.name }}</p>
+        <p>Price: {{ currentProduct.price }}</p>
+        <p>Description: {{ currentProduct.description }}</p>
+        <p>Tax: {{ currentProduct.tax }}</p>
+        <p>Total: {{ currentProduct.total }}</p>
         <button>Close window</button>
       </form>
     </dialog>
